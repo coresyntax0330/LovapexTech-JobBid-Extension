@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "LovapexTech JobBid",
-  "version": "1.7.4",
+  "version": "1.7.5",
   "description": "Create, edit, finalize, and download tailored resumes from supported job sites",
   "permissions": ["clipboardWrite", "scripting", "storage"],
   "icons": {
@@ -40,7 +40,9 @@
         "https://*.adzuna.com/*",
         "https://*.reed.co.uk/*",
         "https://*.reed.com/*",
-        "https://*.totaljobs.com/*"
+        "https://*.totaljobs.com/*",
+        "https://dice.com/*",
+        "https://*.dice.com/*"
       ],
       "js": ["content.js"]
     }

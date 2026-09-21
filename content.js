@@ -9,6 +9,8 @@
   const isTotalJobs =
     location.hostname === "totaljobs.com" ||
     location.hostname.endsWith(".totaljobs.com");
+  const isDice =
+    location.hostname === "dice.com" || location.hostname.endsWith(".dice.com");
   const ADZUNA_DOMAINS = [
     "adzuna.com.au",
     "adzuna.at",
@@ -40,7 +42,8 @@
     !isAdzuna &&
     !isReed &&
     !isReedCom &&
-    !isTotalJobs
+    !isTotalJobs &&
+    !isDice
   )
     return;
   if (document.getElementById("resume-builder-extension")) return;
@@ -54,6 +57,13 @@
   ];
 
   function getTargetContainers() {
+    if (isDice) {
+      return [
+        '[class~="col-span-full"][class~="min-w-0"][class~="space-y-6"][class~="@5xl/job-detail:col-span-8"]',
+        '[class~="@5xl/job-detail:col-span-8"]',
+      ];
+    }
+
     if (isTotalJobs) {
       return [".job-ad-display-1dikfpt"];
     }
@@ -94,6 +104,7 @@
 
   const host = document.createElement("div");
   host.id = "resume-builder-extension";
+  if (isDice) host.dataset.site = "dice";
   const shadow = host.attachShadow({ mode: "open" });
   document.documentElement.appendChild(host);
 
@@ -138,6 +149,12 @@
       .link { color: #087b85; background: transparent; padding: 3px; }
       .hidden { display: none !important; }
       .hint { margin-top: 8px; font-size: 12px; }
+      :host([data-site="dice"]) .mini { background: #2e2835; }
+      :host([data-site="dice"]) .send { background: #dc2626; }
+      :host([data-site="dice"]) .head { background: #2e2835; }
+      :host([data-site="dice"]) .primary { background: #dc2626; }
+      :host([data-site="dice"]) input:focus, :host([data-site="dice"]) textarea:focus { border-color: #dc2626; box-shadow: 0 0 0 3px #dc26261a; }
+      :host([data-site="dice"]) .add, :host([data-site="dice"]) .link { color: #dc2626; }
     </style>
     <div class="launcher">
       <button class="mini" data-copy>Copy</button><button class="mini" data-url>Copy URL</button><button class="mini send" data-send>Send</button>
