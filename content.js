@@ -89,14 +89,11 @@
     }
 
     if (location.pathname.startsWith("/jobs")) {
-      return [
-        ".jobsearch-RightPane.css-6iabie.eu4oa1w0",
-        ...FALLBACK_TARGET_CONTAINERS,
-      ];
+      return [".jobsearch-RightPane.eu4oa1w0"];
     }
 
     if (location.pathname.startsWith("/viewjob")) {
-      return [".css-1butozf.eu4oa1w0", ...FALLBACK_TARGET_CONTAINERS];
+      return [".rn-web-layout-content"];
     }
 
     return FALLBACK_TARGET_CONTAINERS;
@@ -415,7 +412,8 @@
       if (/^role\d+$/.test(key) && typeof value !== "string") {
         draft.experiences[key] = value == null ? "" : String(value);
       } else if (/^experience\d+$/.test(key) && !Array.isArray(value)) {
-        draft.experiences[key] = value == null || value === "" ? [] : [String(value)];
+        draft.experiences[key] =
+          value == null || value === "" ? [] : [String(value)];
       }
     }
     return draft;
@@ -452,15 +450,17 @@
       </div>`,
       )
       .join("");
-    const roles = `<div class="section"><h2>Roles</h2>${experienceIndexes
-      .map((number) =>
-        editorInput(
-          `Role ${number}`,
-          `role${number}`,
-          draft.experiences[`role${number}`],
-        ),
-      )
-      .join("") || "<p>No roles were generated.</p>"}</div>`;
+    const roles = `<div class="section"><h2>Roles</h2>${
+      experienceIndexes
+        .map((number) =>
+          editorInput(
+            `Role ${number}`,
+            `role${number}`,
+            draft.experiences[`role${number}`],
+          ),
+        )
+        .join("") || "<p>No roles were generated.</p>"
+    }</div>`;
     const experiences = experienceIndexes
       .map(
         (number) => `<div class="section">
